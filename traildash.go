@@ -296,7 +296,7 @@ func (c *config) dequeue() (*cloudtrailNotification, error) {
 	q := sqs.New(sess)
 
 	req := sqs.ReceiveMessageInput{
-		QueueURL:            aws.String(c.queueURL),
+		QueueUrl:            aws.String(c.queueURL),
 		MaxNumberOfMessages: aws.Int64(int64(numRequested)),
 		WaitTimeSeconds:     aws.Int64(20), // max allowed
 	}
@@ -394,7 +394,7 @@ func (c *config) deleteSQS(m *cloudtrailNotification) error {
 	sess := session.New(&c.awsConfig)
 	q := sqs.New(sess)
 	req := sqs.DeleteMessageInput{
-		QueueURL:      aws.String(c.queueURL),
+		QueueUrl:      aws.String(c.queueURL),
 		ReceiptHandle: aws.String(m.ReceiptHandle),
 	}
 	_, err := q.DeleteMessage(&req)
